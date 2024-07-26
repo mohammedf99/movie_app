@@ -4,7 +4,6 @@ class MovieDetails extends Movie {
   final String overview;
   final int budget;
   final int revenue;
-  // final String languages;
   final List<String> languages;
 
   MovieDetails({
@@ -27,7 +26,6 @@ class MovieDetails extends Movie {
       overview: json['overview'],
       budget: json['budget'],
       revenue: json['revenue'],
-      // languages: json['original_language']
       languages: List<String>.from(
         json['spoken_languages'].map((lang) => lang['name']),
       ),
@@ -41,8 +39,7 @@ class MovieDetails extends Movie {
       'overview': overview,
       'budget': budget,
       'revenue': revenue,
-      'spoken_language': languages,
-      // 'original_language': languages.map((lang) => {'name': lang}).toList(),
+      'spoken_languages': languages.map((lang) => {'name': lang}).toList(),
     });
     return json;
   }
