@@ -22,3 +22,12 @@ class FetchMovieDetailsEvent extends MovieEvent {
   @override
   List<Object> get props => [id];
 }
+
+class SearchMoviesEvent extends MovieEvent {
+  final String query;
+
+  const SearchMoviesEvent({required this.query});
+
+  @override
+  List<Object> get props => [query];
+}
