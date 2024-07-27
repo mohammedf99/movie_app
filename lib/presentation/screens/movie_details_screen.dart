@@ -11,6 +11,7 @@ class MovieDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    BlocProvider.of<MovieBloc>(context).add(FetchMovieDetailsEvent(id));
 
     return Scaffold(
       appBar: AppBar(
