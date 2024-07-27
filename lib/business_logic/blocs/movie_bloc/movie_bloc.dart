@@ -39,7 +39,7 @@ class MovieBloc extends Bloc<MovieEvent, MovieState> {
         if (movies.isNotEmpty) {
           emit(MovieLoaded(movies: movies));
         } else {
-          emit(MovieEmpty());
+          emit(MovieSearchEmpty());
         }
       } catch (e) {
         emit(MovieError(message: e.toString()));
