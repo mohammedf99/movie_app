@@ -14,6 +14,7 @@ class MovieListScreen extends StatefulWidget {
 class _MovieListScreenState extends State<MovieListScreen> {
   int _page = 1;
   final ScrollController _scrollController = ScrollController();
+  final TextEditingController _searchController = TextEditingController();
 
   @override
   void initState() {
