@@ -32,6 +32,22 @@ class _MovieListScreenState extends State<MovieListScreen> {
     _page++;
   }
 
+  void _navigateBack(int id) {
+    Navigator.of(context)
+        .push(
+      MaterialPageRoute(
+        builder: (_) => BlocProvider.value(
+          value: BlocProvider.of<MovieBloc>(context),
+          child: MovieDetailsScreen(id: id),
+        ),
+      ),
+    )
+        .then((_) {
+      _page--;
+      _loadMovies();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
