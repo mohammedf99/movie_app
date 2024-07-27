@@ -62,36 +62,53 @@ class _MovieListScreenState extends State<MovieListScreen> {
         if (state is MovieLoading) {
           return const CircularProgressIndicator.adaptive();
         } else if (state is MovieLoaded) {
-          return ListView.builder(
-              controller: _scrollController,
-              itemCount: state.movies.length,
-              itemBuilder: (context, index) {
-                return ListTile(
-                  leading: CachedNetworkImage(
-                    imageUrl:
-                        'https://image.tmdb.org/t/p/w500${state.movies[index].posterPath}',
-                    placeholder: (context, url) =>
-                        const CircularProgressIndicator(),
-                    errorWidget: (context, url, error) =>
-                        const Icon(Icons.error),
-                  ),
-                  title: Text(state.movies[index].title),
-                  subtitle: Text(state.movies[index].releaseDate.split('-')[0]),
-                  onTap: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (_) => BlocProvider.value(
-                          value: BlocProvider.of<MovieBloc>(context),
-                          child: MovieDetailsScreen(id: state.movies[index].id),
+          return Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextField(
+                  controller: _searchController,
+                  style: Theme.of(context).textTheme.bodyLarge,
+                  decoration: InputDecoration(
+                      hintText: "Search for movie...",
+                      hintStyle: Theme.of(context).textTheme.titleMedium,
+                      suffixIcon: IconButton(
+                        icon: const Icon(
+                          Icons.search,
+                          color: Color(0xffD3D3D3),
                         ),
-                      ),
-                    ).then((_) {
-                      _page--;
-                      _loadMovies();
-                    });
+                        onPressed: () {
+                          if (_searchController.text.isEmpty ||
+                              _searchController.text == '') return;
+                          _searchMovies(_searchController.text);
+                          _searchController.clear();
+                        },
+                      )),
+                  onSubmitted: (_) {
+                    if (_searchController.text.isEmpty ||
+                        _searchController.text == '') return;
+                    _searchMovies(_searchController.text);
+                    _searchController.clear();
                   },
-                );
-              });
+                ),
+              ),
+              Expanded(
+                child: ListView.builder(
+                    controller: _scrollController,
+                    itemCount: state.movies.length,
+                    itemBuilder: (context, index) {
+                      return MovieListTile(
+                        title: state.movies[index].title,
+                        releaseDate: state.movies[index].releaseDate,
+                        posterPath: state.movies[index].posterPath,
+                        id: state.movies[index].id,
+                        navigationMethod: () =>
+                            _navigateBack(state.movies[index].id),
+                      );
+                    }),
+              ),
+            ],
+          );
         } else if (state is MovieError) {
           return Center(
             child: Text(state.message),
