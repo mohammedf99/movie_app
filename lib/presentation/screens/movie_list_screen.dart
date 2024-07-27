@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_app/business_logic/blocs/movie_bloc/movie_bloc.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:movie_app/presentation/screens/movie_details_screen.dart';
 
 class MovieListScreen extends StatefulWidget {
   const MovieListScreen({super.key});
@@ -42,7 +43,7 @@ class _MovieListScreenState extends State<MovieListScreen> {
           return const CircularProgressIndicator.adaptive();
         } else if (state is MovieLoaded) {
           return ListView.builder(
-            controller: _scrollController,
+              controller: _scrollController,
               itemCount: state.movies.length,
               itemBuilder: (context, index) {
                 return ListTile(
@@ -56,6 +57,16 @@ class _MovieListScreenState extends State<MovieListScreen> {
                   ),
                   title: Text(state.movies[index].title),
                   subtitle: Text(state.movies[index].releaseDate.split('-')[0]),
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (_) => BlocProvider.value(
+                          value: BlocProvider.of<MovieBloc>(context),
+                          child: MovieDetailsScreen(id: state.movies[index].id),
+                        ),
+                      ),
+                    );
+                  },
                 );
               });
         } else if (state is MovieError) {
