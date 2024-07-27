@@ -8,7 +8,6 @@ class MovieApiProvider {
   Future<List<Movie>> fetchTrendingMovies(int page) async {
     final response = await http.get(Uri.parse(
         "https://api.themoviedb.org/3/discover/movie?api_key=${dotenv.env["APIKEY"]}&sort_by=popularity.desc&page=$page"));
-
     if (response.statusCode == 200) {
       final data = json.decode(response.body);
       List<Movie> movies = List<Movie>.from(
@@ -23,7 +22,6 @@ class MovieApiProvider {
   }
 
   Future<MovieDetails> fetchMovieDetails(int id) async {
-    // await dotenv.load(fileName: ".env");
     final response = await http.get(
       Uri.parse(
           "https://api.themoviedb.org/3/movie/$id?api_key=${dotenv.env["APIKEY"]}"),
