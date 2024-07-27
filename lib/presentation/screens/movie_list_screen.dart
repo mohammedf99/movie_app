@@ -65,7 +65,10 @@ class _MovieListScreenState extends State<MovieListScreen> {
                           child: MovieDetailsScreen(id: state.movies[index].id),
                         ),
                       ),
-                    );
+                    ).then((_) {
+                      _page--;
+                      _loadMovies();
+                    });
                   },
                 );
               });
