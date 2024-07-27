@@ -10,6 +10,18 @@ class MovieListScreen extends StatefulWidget {
 }
 
 class _MovieListScreenState extends State<MovieListScreen> {
+  int _page = 1;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadMovies();
+  }
+
+  void _loadMovies() {
+    BlocProvider.of<MovieBloc>(context).add(FetchMoviesEvent(_page));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
