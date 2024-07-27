@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_app/business_logic/blocs/movie_bloc/movie_bloc.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+
 
 class MovieListScreen extends StatefulWidget {
   const MovieListScreen({super.key});
@@ -32,16 +34,18 @@ class _MovieListScreenState extends State<MovieListScreen> {
         if (state is MovieLoading) {
           return const CircularProgressIndicator.adaptive();
         } else if (state is MovieLoaded) {
-          // return Center(
-          //   child: Text(
-          //     "Movies loaded",
-          //     style: Theme.of(context).textTheme.titleLarge,
-          //   ),
-          // );
           return ListView.builder(
             itemCount: state.movies.length,
             itemBuilder: (context, index) {
               return ListTile(
+                leading: CachedNetworkImage(
+                    imageUrl:
+                        'https://image.tmdb.org/t/p/w500${state.movies[index].posterPath}',
+                    placeholder: (context, url) =>
+                        const CircularProgressIndicator(),
+                    errorWidget: (context, url, error) =>
+                        const Icon(Icons.error),
+                  ),
                 title: Text(state.movies[index].title),
                 subtitle: Text(state.movies[index].releaseDate.split('-')[0]),
               );
