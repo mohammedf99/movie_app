@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_app/business_logic/blocs/movie_bloc/movie_bloc.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:movie_app/presentation/screens/movie_details_screen.dart';
+import 'package:movie_app/presentation/widgets/movie_list_tile.dart';
 
 class MovieListScreen extends StatefulWidget {
   const MovieListScreen({super.key});
@@ -108,7 +108,7 @@ class _MovieListScreenState extends State<MovieListScreen> {
                       return MovieListTile(
                         title: state.movies[index].title,
                         releaseDate: state.movies[index].releaseDate,
-                        posterPath: state.movies[index].posterPath,
+                        posterPath: state.movies[index].posterPath ?? '',
                         id: state.movies[index].id,
                         navigationMethod: () =>
                             _navigateBack(state.movies[index].id),
