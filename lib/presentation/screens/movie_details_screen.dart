@@ -38,20 +38,28 @@ class MovieDetailsScreen extends StatelessWidget {
                           const Icon(Icons.error),
                     ),
                   ),
-                  const SizedBox(height: 16),
-                  Text(state.movieDetails.title,
-                      style: Theme.of(context).textTheme.titleLarge),
-                  const SizedBox(
-                    height: 8.0,
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(state.movieDetails.title,
+                            style: Theme.of(context).textTheme.titleLarge),
+                        const SizedBox(
+                          height: 8.0,
+                        ),
+                        Text(state.movieDetails.releaseDate),
+                        const Divider(),
+                        Text(state.movieDetails.overview),
+                        const Divider(),
+                        Text('Budget: \$${state.movieDetails.budget}'),
+                        Text('Revenue: \$${state.movieDetails.revenue}'),
+                        // Text('Languages: ${state.movieDetails.languages}'),
+                        Text(
+                            'Languages: ${state.movieDetails.languages.join(', ')}'),
+                      ],
+                    ),
                   ),
-                  Text(state.movieDetails.releaseDate),
-                  const SizedBox(height: 16),
-                  Text(state.movieDetails.overview),
-                  const SizedBox(height: 16),
-                  Text('Budget: \$${state.movieDetails.budget}'),
-                  Text('Revenue: \$${state.movieDetails.revenue}'),
-                  // Text('Languages: ${state.movieDetails.languages}'),
-                  Text('Languages: ${state.movieDetails.languages.join(', ')}'),
                 ],
               ),
             );
