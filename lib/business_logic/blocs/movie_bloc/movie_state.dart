@@ -9,6 +9,7 @@ abstract class MovieState extends Equatable {
 }
 
 final class MovieInitial extends MovieState {}
+
 final class MovieLoading extends MovieState {}
 
 class MovieLoaded extends MovieState {
@@ -40,3 +41,4 @@ class MovieError extends MovieState {
   List<Object> get props => [message];
 }
 
+class MovieSearchEmpty extends MovieState {}
