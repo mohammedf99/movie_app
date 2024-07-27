@@ -42,6 +42,7 @@ class _MovieListScreenState extends State<MovieListScreen> {
           return const CircularProgressIndicator.adaptive();
         } else if (state is MovieLoaded) {
           return ListView.builder(
+            controller: _scrollController,
               itemCount: state.movies.length,
               itemBuilder: (context, index) {
                 return ListTile(
