@@ -61,6 +61,13 @@ class _MovieListScreenState extends State<MovieListScreen> {
       body: BlocBuilder<MovieBloc, MovieState>(builder: (context, state) {
         if (state is MovieLoading) {
           return const CircularProgressIndicator.adaptive();
+        } else if (state is MovieSearchEmpty) {
+          return Center(
+            child: Text(
+              "No movie found",
+              style: Theme.of(context).textTheme.titleLarge,
+            ),
+          );
         } else if (state is MovieLoaded) {
           return Column(
             children: [
