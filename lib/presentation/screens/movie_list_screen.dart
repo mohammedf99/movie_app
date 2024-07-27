@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_app/business_logic/blocs/movie_bloc/movie_bloc.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
-
 class MovieListScreen extends StatefulWidget {
   const MovieListScreen({super.key});
 
@@ -13,15 +12,23 @@ class MovieListScreen extends StatefulWidget {
 
 class _MovieListScreenState extends State<MovieListScreen> {
   int _page = 1;
+  final ScrollController _scrollController = ScrollController();
 
   @override
   void initState() {
     super.initState();
     _loadMovies();
+    _scrollController.addListener(() {
+      if (_scrollController.position.pixels ==
+          _scrollController.position.maxScrollExtent) {
+        _loadMovies();
+      }
+    });
   }
 
   void _loadMovies() {
     BlocProvider.of<MovieBloc>(context).add(FetchMoviesEvent(_page));
+    _page++;
   }
 
   @override
@@ -35,10 +42,10 @@ class _MovieListScreenState extends State<MovieListScreen> {
           return const CircularProgressIndicator.adaptive();
         } else if (state is MovieLoaded) {
           return ListView.builder(
-            itemCount: state.movies.length,
-            itemBuilder: (context, index) {
-              return ListTile(
-                leading: CachedNetworkImage(
+              itemCount: state.movies.length,
+              itemBuilder: (context, index) {
+                return ListTile(
+                  leading: CachedNetworkImage(
                     imageUrl:
                         'https://image.tmdb.org/t/p/w500${state.movies[index].posterPath}',
                     placeholder: (context, url) =>
@@ -46,10 +53,10 @@ class _MovieListScreenState extends State<MovieListScreen> {
                     errorWidget: (context, url, error) =>
                         const Icon(Icons.error),
                   ),
-                title: Text(state.movies[index].title),
-                subtitle: Text(state.movies[index].releaseDate.split('-')[0]),
-              );
-          });
+                  title: Text(state.movies[index].title),
+                  subtitle: Text(state.movies[index].releaseDate.split('-')[0]),
+                );
+              });
         } else if (state is MovieError) {
           return Center(
             child: Text(state.message),
