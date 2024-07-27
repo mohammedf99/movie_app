@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_app/business_logic/blocs/movie_bloc/movie_bloc.dart';
 import 'package:movie_app/presentation/screens/movie_details_screen.dart';
 import 'package:movie_app/presentation/widgets/movie_list_tile.dart';
+import 'package:movie_app/presentation/widgets/search_text_field.dart';
 
 class MovieListScreen extends StatefulWidget {
   const MovieListScreen({super.key});
@@ -72,34 +73,7 @@ class _MovieListScreenState extends State<MovieListScreen> {
         } else if (state is MovieLoaded) {
           return Column(
             children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: TextField(
-                  controller: _searchController,
-                  style: Theme.of(context).textTheme.bodyLarge,
-                  decoration: InputDecoration(
-                      hintText: "Search for movie...",
-                      hintStyle: Theme.of(context).textTheme.titleMedium,
-                      suffixIcon: IconButton(
-                        icon: const Icon(
-                          Icons.search,
-                          color: Color(0xffD3D3D3),
-                        ),
-                        onPressed: () {
-                          if (_searchController.text.isEmpty ||
-                              _searchController.text == '') return;
-                          _searchMovies(_searchController.text);
-                          _searchController.clear();
-                        },
-                      )),
-                  onSubmitted: (_) {
-                    if (_searchController.text.isEmpty ||
-                        _searchController.text == '') return;
-                    _searchMovies(_searchController.text);
-                    _searchController.clear();
-                  },
-                ),
-              ),
+              SearchTextField(searchController: _searchController, searchMovies: _searchMovies),
               Expanded(
                 child: ListView.builder(
                     controller: _scrollController,
