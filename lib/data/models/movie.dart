@@ -1,13 +1,13 @@
 class Movie {
   final int id;
   final String title;
-  final String posterPath;
+  final String? posterPath;
   final String releaseDate;
 
   Movie({
     required this.id,
     required this.title,
-    required this.posterPath,
+    this.posterPath,
     required this.releaseDate,
   });
 
