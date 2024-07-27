@@ -48,6 +48,10 @@ class _MovieListScreenState extends State<MovieListScreen> {
     });
   }
 
+  void _searchMovies(String query) {
+    context.read<MovieBloc>().add(SearchMoviesEvent(query: query));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
