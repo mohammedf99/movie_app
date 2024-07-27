@@ -19,4 +19,13 @@ class MovieRepository {
   Future<MovieDetails> fetchMovieDetails(int id) async {
     return await movieApiProvider.fetchMovieDetails(id);
   }
+
+  Future<List<Movie>> fetchSearchResults(String query) async {
+    try {
+      final movies = await movieApiProvider.searchMovie(query);
+      return movies;
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
 }
