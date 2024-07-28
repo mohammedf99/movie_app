@@ -45,5 +45,14 @@ class MovieBloc extends Bloc<MovieEvent, MovieState> {
         emit(MovieError(message: e.toString()));
       }
     });
+
+    on<SearchMoviesByGenreEvent>((event, emit) async {
+      try {
+        final movies = await movieRepository.fetchMovieByGenreResults(event.id);
+        emit(MovieLoaded(movies: movies));
+      } catch (e) {
+        emit(MovieError(message: e.toString()));
+      }
+    });
   }
 }
