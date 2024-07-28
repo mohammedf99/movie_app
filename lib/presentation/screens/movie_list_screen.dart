@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_app/business_logic/blocs/movie_bloc/movie_bloc.dart';
-import 'package:movie_app/data/models/genre.dart';
 import 'package:movie_app/presentation/screens/movie_details_screen.dart';
 import 'package:movie_app/presentation/widgets/genre_dropdown.dart';
 import 'package:movie_app/presentation/widgets/movie_list_tile.dart';
