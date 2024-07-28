@@ -5,6 +5,7 @@ import 'package:movie_app/data/models/movie.dart';
 import 'package:http/http.dart' as http;
 import 'package:movie_app/data/models/movie_details.dart';
 
+/// MovieApiProvider sends http request to the *TMDB* and returns either movie or movie details based on the given endpoint.
 class MovieApiProvider {
   Future<List<Movie>> fetchTrendingMovies(int page) async {
     final response = await http.get(Uri.parse(
