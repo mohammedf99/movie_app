@@ -78,8 +78,13 @@ class _MovieListScreenState extends State<MovieListScreen> {
         } else if (state is MovieLoaded) {
           return Column(
             children: [
-              SearchTextField(searchController: _searchController, searchMovies: _searchMovies),
-              GenreDropdown(searchByGenre: _searchMoviesByGenre,),
+              SearchTextField(
+                searchController: _searchController,
+                searchMovies: _searchMovies,
+              ),
+              GenreDropdown(
+                searchByGenre: _searchMoviesByGenre,
+              ),
               Expanded(
                 child: ListView.builder(
                     controller: _scrollController,
@@ -91,8 +96,7 @@ class _MovieListScreenState extends State<MovieListScreen> {
                         releaseDate: movie.releaseDate,
                         posterPath: movie.posterPath ?? '',
                         id: movie.id,
-                        navigationMethod: () =>
-                            _navigateBack(movie.id),
+                        navigationMethod: () => _navigateBack(movie.id),
                       );
                     }),
               ),
