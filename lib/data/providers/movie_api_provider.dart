@@ -53,6 +53,23 @@ class MovieApiProvider {
     }
   }
 
+  Future<List<Movie>> fetchMoviesBasedOnGenre(int id) async {
+    final response = await http.get(Uri.parse(
+        "https://api.themoviedb.org/3/discover/movie?api_key=${dotenv.env['APIKEY']}&with_genres=$id"));
+
+    if (response.statusCode == 200) {
+      final data = json.decode(response.body);
+      List<Movie> movies = List<Movie>.from(
+        data['results'].map(
+          (movie) => Movie.fromJson(movie),
+        ),
+      );
+      return movies;
+    } else {
+      throw Exception("Failed to fetch movies based on Genre");
+    }
+  }
+
   Future<List<Genre>> fetchGenres() async {
     final response = await http.get(Uri.parse(
         'https://api.themoviedb.org/3/genre/movie/list?language=en&api_key=${dotenv.env['APIKEY']}'));
