@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_app/business_logic/blocs/movie_bloc/movie_bloc.dart';
+import 'package:movie_app/data/models/genre.dart';
 import 'package:movie_app/presentation/screens/movie_details_screen.dart';
+import 'package:movie_app/presentation/widgets/genre_dropdown.dart';
 import 'package:movie_app/presentation/widgets/movie_list_tile.dart';
 import 'package:movie_app/presentation/widgets/search_text_field.dart';
 
@@ -54,6 +56,10 @@ class _MovieListScreenState extends State<MovieListScreen> {
     context.read<MovieBloc>().add(SearchMoviesEvent(query: query));
   }
 
+  void _searchMoviesByGenre(int id) {
+    context.read<MovieBloc>().add(SearchMoviesByGenreEvent(id: id));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -74,6 +80,7 @@ class _MovieListScreenState extends State<MovieListScreen> {
           return Column(
             children: [
               SearchTextField(searchController: _searchController, searchMovies: _searchMovies),
+              GenreDropdown(searchByGenre: _searchMoviesByGenre,),
               Expanded(
                 child: ListView.builder(
                     controller: _scrollController,
