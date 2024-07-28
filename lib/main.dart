@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:movie_app/business_logic/blocs/genre_bloc/genre_bloc.dart';
 import 'package:movie_app/data/providers/movie_api_provider.dart';
 import 'package:movie_app/data/repositories/movie_repository.dart';
 import 'package:movie_app/presentation/screens/movie_list_screen.dart';
@@ -30,8 +31,15 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: "Movie App",
       theme: themeData,
-      home: BlocProvider<MovieBloc>(
-        create: (ctx) => MovieBloc(movieRepository),
+      home: MultiBlocProvider(
+        providers: [
+          BlocProvider<MovieBloc>(
+            create: (ctx) => MovieBloc(movieRepository),
+          ),
+          BlocProvider(
+            create: (context) => GenreBloc(movieRepository)..add(FetchGenreEvent()),
+          ),
+        ],
         child: const MovieListScreen(),
       ),
     );
