@@ -25,13 +25,21 @@ class MovieRepository {
   }
 
   Future<MovieDetails> fetchMovieDetails(int id) async {
-    return await movieApiProvider.fetchMovieDetails(id);
+    try {
+      return await movieApiProvider.fetchMovieDetails(id);
+    } on SocketException {
+      throw ("No details availabe. Please connect to internet!");
+    } catch (e) {
+      throw Exception(e);
+    }
   }
 
   Future<List<Movie>> fetchSearchResults(String query) async {
     try {
       final movies = await movieApiProvider.searchMovie(query);
       return movies;
+    } on SocketException {
+      throw Exception("You can not search. Please connect to internet.");
     } catch (e) {
       throw Exception(e);
     }
@@ -41,6 +49,8 @@ class MovieRepository {
     try {
       final movies = await movieApiProvider.fetchMoviesBasedOnGenre(id);
       return movies;
+    } on SocketException {
+      throw Exception("You can not fetch by genre. Please connect to internet.");
     } catch (e) {
       throw Exception(e);
     }
@@ -50,6 +60,8 @@ class MovieRepository {
     try {
       final genres = await movieApiProvider.fetchGenres();
       return genres;
+    } on SocketException {
+      throw Exception("Please connect to internet first!");
     } catch (e) {
       throw Exception(e);
     }
