@@ -1,5 +1,10 @@
 import 'package:movie_app/data/models/movie.dart';
 
+/// MovieDetails works as a child of Movie and stores the following additional attributes:
+/// - String overview,
+/// - int budget,
+/// - int revenue,
+/// - List< String > languages
 class MovieDetails extends Movie {
   final String overview;
   final int budget;
