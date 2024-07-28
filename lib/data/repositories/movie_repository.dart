@@ -30,10 +30,18 @@ class MovieRepository {
     }
   }
 
+  Future<List<Movie>> fetchMovieByGenreResults(int id) async {
+    try {
+      final movies = await movieApiProvider.fetchMoviesBasedOnGenre(id);
+      return movies;
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
   Future<List<Genre>> fetchGenre() async {
     try {
       final genres = await movieApiProvider.fetchGenres();
-      print(genres);
       return genres;
     } catch (e) {
       throw Exception(e);
