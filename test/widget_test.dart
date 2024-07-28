@@ -7,13 +7,20 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:movie_app/data/providers/movie_api_provider.dart';
+import 'package:movie_app/data/repositories/movie_repository.dart';
 
 import 'package:movie_app/main.dart';
 
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
+    MovieApiProvider movieApiProvider = MovieApiProvider();
     // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+    await tester.pumpWidget(
+      MyApp(
+        movieRepository: MovieRepository(movieApiProvider: movieApiProvider),
+      ),
+    );
 
     // Verify that our counter starts at 0.
     expect(find.text('0'), findsOneWidget);
