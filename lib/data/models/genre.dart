@@ -1,3 +1,6 @@
+/// Fetched genres will be converted to Genre object which has the following attributes:
+/// - int id,
+/// - String name,
 class Genre {
   final int id;
   final String name;
