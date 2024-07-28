@@ -4,8 +4,10 @@ final kColorScheme = ColorScheme.fromSeed(
   seedColor: const Color(0xff0d1b2a),
 );
 
+const white = Color(0xFFD3D3D3);
+
 const textStyleColor = TextStyle(
-  color: Color(0xffD3D3D3),
+  color: white,
 );
 
 final themeData = ThemeData(
@@ -24,7 +26,7 @@ final themeData = ThemeData(
   ),
   listTileTheme: const ListTileThemeData(
     titleTextStyle: TextStyle(
-      color: Color(0xffD3D3D3),
+      color: white,
       fontWeight: FontWeight.w700,
     ),
     subtitleTextStyle: TextStyle(
@@ -33,6 +35,6 @@ final themeData = ThemeData(
   ),
   iconTheme: const IconThemeData(
     size: 32.0,
-    color: Color(0xffD3D3D3),
+    color: white,
   ),
 );
