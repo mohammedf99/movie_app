@@ -1,4 +1,3 @@
-// screens/movie_details_screen.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -54,7 +53,6 @@ class MovieDetailsScreen extends StatelessWidget {
                         const Divider(),
                         Text('Budget: \$${state.movieDetails.budget}'),
                         Text('Revenue: \$${state.movieDetails.revenue}'),
-                        // Text('Languages: ${state.movieDetails.languages}'),
                         Text(
                             'Languages: ${state.movieDetails.languages.join(', ')}'),
                       ],
