@@ -5,12 +5,16 @@ import 'package:movie_app/data/models/movie.dart';
 import 'package:movie_app/data/models/movie_details.dart';
 import 'package:movie_app/data/providers/movie_api_provider.dart';
 
+/// The MovieRepository works as an intermediate between the MovieBloc and MovieApiService.
 class MovieRepository {
   final MovieApiProvider movieApiProvider;
   GetStorage storage = GetStorage();
 
   MovieRepository({required this.movieApiProvider});
 
+  /// Fetches trending movies based on the given [page].
+  /// 
+  /// If there is no internet connection, then it returns List of movies stored in GetStorage. 
   Future<List<Movie>> fetchTrendingMovies(int page) async {
     try {
       final movies = await movieApiProvider.fetchTrendingMovies(page);
@@ -23,7 +27,9 @@ class MovieRepository {
       throw Exception(e);
     }
   }
-
+  /// Returns movie detail based on [id] provided by the movie object.
+  /// 
+  /// *Note: no detial is available when there is no internet connection.
   Future<MovieDetails> fetchMovieDetails(int id) async {
     try {
       return await movieApiProvider.fetchMovieDetails(id);
@@ -34,6 +40,9 @@ class MovieRepository {
     }
   }
 
+  /// Fetches search results based on a given [query].
+  /// 
+  /// *Note: no search is availabe when there is no connection.
   Future<List<Movie>> fetchSearchResults(String query) async {
     try {
       final movies = await movieApiProvider.searchMovie(query);
@@ -45,6 +54,7 @@ class MovieRepository {
     }
   }
 
+  /// Returns a list of movies based on given genre [id].
   Future<List<Movie>> fetchMovieByGenreResults(int id) async {
     try {
       final movies = await movieApiProvider.fetchMoviesBasedOnGenre(id);
@@ -56,6 +66,7 @@ class MovieRepository {
     }
   }
 
+  /// Returns a list of available genre.
   Future<List<Genre>> fetchGenre() async {
     try {
       final genres = await movieApiProvider.fetchGenres();
