@@ -31,3 +31,12 @@ class SearchMoviesEvent extends MovieEvent {
   @override
   List<Object> get props => [query];
 }
+
+class SearchMoviesByGenreEvent extends MovieEvent {
+  final int id;
+
+  const SearchMoviesByGenreEvent({required this.id});
+
+  @override
+  List<Object?> get props => [id];
+}
