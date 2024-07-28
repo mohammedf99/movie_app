@@ -18,6 +18,7 @@ class _MovieListScreenState extends State<MovieListScreen> {
   final ScrollController _scrollController = ScrollController();
   final TextEditingController _searchController = TextEditingController();
 
+  // ScrollController controlls ListView.builder() and increments pages to view the next list of movies fetched by the API.
   @override
   void initState() {
     super.initState();
@@ -35,6 +36,9 @@ class _MovieListScreenState extends State<MovieListScreen> {
     _page++;
   }
 
+  // Navigates between MovieListTile and back. 
+  //.then() is used because movies will not be loaded again after pressing the back button.
+  // pages are decremented because it's being incremented once you view detail of a movie
   void _navigateBack(int id) {
     Navigator.of(context)
         .push(
