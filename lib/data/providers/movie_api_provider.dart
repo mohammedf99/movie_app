@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:movie_app/data/models/genre.dart';
 import 'package:movie_app/data/models/movie.dart';
 import 'package:http/http.dart' as http;
 import 'package:movie_app/data/models/movie_details.dart';
@@ -49,6 +50,23 @@ class MovieApiProvider {
       return movies;
     } else {
       throw Exception("Failed to fetch movie results");
+    }
+  }
+
+  Future<List<Genre>> fetchGenres() async {
+    final response = await http.get(Uri.parse(
+        'https://api.themoviedb.org/3/genre/movie/list?language=en&api_key=${dotenv.env['APIKEY']}'));
+
+    if (response.statusCode == 200) {
+      final data = json.decode(response.body);
+      List<Genre> genres = List<Genre>.from(
+        data['genres'].map(
+          (genre) => Genre.fromJson(genre),
+        ),
+      );
+      return genres;
+    } else {
+      throw Exception("Failed to fetch Genres");
     }
   }
 }
