@@ -69,11 +69,22 @@ class _MovieListScreenState extends State<MovieListScreen> {
         if (state is MovieLoading) {
           return const CircularProgressIndicator.adaptive();
         } else if (state is MovieSearchEmpty) {
-          return Center(
-            child: Text(
-              "No movie found",
-              style: Theme.of(context).textTheme.titleLarge,
-            ),
+          return Column(
+            children: [
+              SearchTextField(
+                searchController: _searchController,
+                searchMovies: _searchMovies,
+              ),
+              GenreDropdown(
+                searchByGenre: _searchMoviesByGenre,
+              ),
+              const Spacer(),
+              Text(
+                "No movie found",
+                style: Theme.of(context).textTheme.titleLarge,
+              ),
+              const Spacer(),
+            ],
           );
         } else if (state is MovieLoaded) {
           return Column(
