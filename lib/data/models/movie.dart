@@ -1,3 +1,8 @@
+/// Fetched data from the API will be converted to Movie object. The Movie object has following attributes:
+/// - String id,
+/// - String title,
+/// - String? posterPath
+/// - String releaseDate
 class Movie {
   final int id;
   final String title;
