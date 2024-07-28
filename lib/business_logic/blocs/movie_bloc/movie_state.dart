@@ -1,5 +1,13 @@
 part of 'movie_bloc.dart';
 
+/// Different States of movie are available which are:
+/// - MovieInitial
+/// - MovieLoading
+/// - MovieLoaded => takes a list< Movie >
+/// - MovieDetailsLoading
+/// - MovieDetailsLoaded => has MovieDetail as attribute
+/// - MovieError => needs error message
+/// - MovieSearchEmpty
 @immutable
 abstract class MovieState extends Equatable {
   const MovieState();
@@ -41,4 +49,5 @@ class MovieError extends MovieState {
   List<Object> get props => [message];
 }
 
+// Some given searches might not be available by TMDB query.
 class MovieSearchEmpty extends MovieState {}
