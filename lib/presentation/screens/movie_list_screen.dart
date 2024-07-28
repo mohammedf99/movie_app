@@ -85,13 +85,14 @@ class _MovieListScreenState extends State<MovieListScreen> {
                     controller: _scrollController,
                     itemCount: state.movies.length,
                     itemBuilder: (context, index) {
+                      final movie = state.movies[index];
                       return MovieListTile(
-                        title: state.movies[index].title,
-                        releaseDate: state.movies[index].releaseDate,
-                        posterPath: state.movies[index].posterPath ?? '',
-                        id: state.movies[index].id,
+                        title: movie.title,
+                        releaseDate: movie.releaseDate,
+                        posterPath: movie.posterPath ?? '',
+                        id: movie.id,
                         navigationMethod: () =>
-                            _navigateBack(state.movies[index].id),
+                            _navigateBack(movie.id),
                       );
                     }),
               ),
